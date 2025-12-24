@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Building2,
@@ -9,11 +9,12 @@ import {
   Plane,
   GraduationCap,
   Home,
+  ArrowRight,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
 
 const solutions = [
   {
@@ -79,6 +80,7 @@ const Solutions = () => {
   const gridRef = useRef(null);
   const heroInView = useInView(heroRef, { once: true });
   const gridInView = useInView(gridRef, { once: true, margin: "-100px" });
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-background">
@@ -178,12 +180,22 @@ const Solutions = () => {
             We create custom automation solutions for any industry. Let's discuss
             your specific needs.
           </p>
-          <Button variant="hero" size="lg" className="group">
+          <Button
+            variant="hero"
+            size="lg"
+            className="group"
+            onClick={() => setIsContactFormOpen(true)}
+          >
             Contact Us
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </section>
+
+      <ContactForm
+        open={isContactFormOpen}
+        onOpenChange={setIsContactFormOpen}
+      />
 
       <Footer />
     </main>

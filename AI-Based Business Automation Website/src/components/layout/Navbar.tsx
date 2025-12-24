@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -76,6 +77,7 @@ export const Navbar = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           <Button variant="ghost" size="sm">
             Sign In
           </Button>
@@ -125,6 +127,10 @@ export const Navbar = () => {
                 </motion.div>
               ))}
               <div className="flex flex-col gap-3 pt-4 border-t border-border">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-muted-foreground">Theme</span>
+                  <ThemeToggle />
+                </div>
                 <Button variant="ghost" className="w-full">
                   Sign In
                 </Button>

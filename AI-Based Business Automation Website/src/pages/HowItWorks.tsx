@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Upload,
@@ -10,6 +10,7 @@ import {
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { DemoBookingForm } from "@/components/DemoBookingForm";
 
 const steps = [
   {
@@ -67,6 +68,7 @@ const HowItWorks = () => {
   const stepsRef = useRef(null);
   const heroInView = useInView(heroRef, { once: true });
   const stepsInView = useInView(stepsRef, { once: true, margin: "-100px" });
+  const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-background">
@@ -122,20 +124,17 @@ const HowItWorks = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={stepsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                className={`relative grid lg:grid-cols-2 gap-8 lg:gap-16 mb-16 last:mb-0 ${
-                  index % 2 === 1 ? "lg:direction-rtl" : ""
-                }`}
+                className={`relative grid lg:grid-cols-2 gap-8 lg:gap-16 mb-16 last:mb-0 ${index % 2 === 1 ? "lg:direction-rtl" : ""
+                  }`}
               >
                 {/* Content */}
                 <div
-                  className={`${
-                    index % 2 === 1 ? "lg:order-2 lg:text-left" : "lg:text-right"
-                  }`}
+                  className={`${index % 2 === 1 ? "lg:order-2 lg:text-left" : "lg:text-right"
+                    }`}
                 >
                   <div
-                    className={`inline-flex items-center gap-4 mb-4 ${
-                      index % 2 === 1 ? "" : "lg:flex-row-reverse"
-                    }`}
+                    className={`inline-flex items-center gap-4 mb-4 ${index % 2 === 1 ? "" : "lg:flex-row-reverse"
+                      }`}
                   >
                     <span className="font-display font-bold text-5xl gradient-text opacity-50">
                       {step.number}
@@ -148,9 +147,8 @@ const HowItWorks = () => {
                     {step.description}
                   </p>
                   <div
-                    className={`flex flex-wrap gap-3 ${
-                      index % 2 === 1 ? "" : "lg:justify-end"
-                    }`}
+                    className={`flex flex-wrap gap-3 ${index % 2 === 1 ? "" : "lg:justify-end"
+                      }`}
                   >
                     {step.details.map((detail) => (
                       <span
@@ -165,22 +163,19 @@ const HowItWorks = () => {
 
                 {/* Icon Card */}
                 <div
-                  className={`flex items-center ${
-                    index % 2 === 1 ? "lg:order-1 lg:justify-end" : "lg:justify-start"
-                  }`}
+                  className={`flex items-center ${index % 2 === 1 ? "lg:order-1 lg:justify-end" : "lg:justify-start"
+                    }`}
                 >
                   <div className="relative">
                     {/* Connector to timeline */}
                     <div
-                      className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-16 h-px bg-gradient-to-r from-primary to-secondary ${
-                        index % 2 === 1 ? "left-full" : "right-full"
-                      }`}
+                      className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-16 h-px bg-gradient-to-r from-primary to-secondary ${index % 2 === 1 ? "left-full" : "right-full"
+                        }`}
                     />
                     {/* Node on timeline */}
                     <div
-                      className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary glow-box ${
-                        index % 2 === 1 ? "left-[calc(100%+4rem)]" : "right-[calc(100%+4rem)]"
-                      }`}
+                      className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary glow-box ${index % 2 === 1 ? "left-[calc(100%+4rem)]" : "right-[calc(100%+4rem)]"
+                        }`}
                     />
 
                     <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl gradient-border flex items-center justify-center glow-box">
@@ -209,12 +204,21 @@ const HowItWorks = () => {
               Start Free Trial
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="hero-outline" size="lg">
+            <Button
+              variant="hero-outline"
+              size="lg"
+              onClick={() => setIsDemoFormOpen(true)}
+            >
               Schedule Demo
             </Button>
           </div>
         </div>
       </section>
+
+      <DemoBookingForm
+        open={isDemoFormOpen}
+        onOpenChange={setIsDemoFormOpen}
+      />
 
       <Footer />
     </main>
